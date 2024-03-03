@@ -3,8 +3,11 @@
 set -e
 
 (
+MANIFEST_URL="${MANIFEST_URL:-https://raw.githubusercontent.com/Rafinol/rafinol.github.io/main/manifest.json}"
+export MANIFEST_URL
+
 echo "[ ] Downloading manifest..."
-export MANIFEST_JSON='{ "id": "torrserv.matrix.app", "version": "0.3.6", "type": "native", "title": "Torrserver MatriX", "appDescription": "Torrent stream server for webOS", "iconUri": "https://webosappclub.github.io/apps/torrserv.matrix.app/icon.png", "sourceUrl": "https://github.com/YouROK/TorrServer", "rootRequired": false, "ipkUrl": "https://webosappclub.github.io/apps/torrserv.matrix.app/torrserv.matrix.app_0.3.6_all.ipk", "ipkHash": { "sha256": "013e98c0f0d39f2351961f1a292db0f043ff61354e39e89813dfc4ca19a74fb0" }, "ipkSize": 14572046 }'
+export MANIFEST_JSON="$(curl -L -- "$MANIFEST_URL")"
 
 export $(node -e '
 var manifest = JSON.parse(process.env.MANIFEST_JSON);
